@@ -1,0 +1,52 @@
+spring:
+  project:
+    name: test
+  file:
+    upload-dir: D:\upload
+  security:
+    remember-me-time: 86400
+    token-valid-days: 15
+  datasource:
+    hikari:
+      name: read
+      driverClassName: com.mysql.cj.jdbc.Driver
+      jdbcUrl: jdbc:mysql://localhost:3306/demo?allowMultiQueries=true&serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false
+      username: root
+      password: 123456
+      write-one:
+    initial-Size: 5
+    min-Idle: 5
+    max-Active: 20
+    max-Wait: 60000
+    time-Between-Eviction-Runs-Millis: 60000
+    minEvictableIdle-Time-Millis: 30000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall,log4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+logging:
+  file:
+    path: D:\log
+    name: E:\log\demo.log
+  level:
+    jdbc:
+      audit: off
+      resultset: off
+      sqltiming: off
+    com:
+      framework:
+        mapper: debug
+    org:
+      springframework:
+        web: error
+    root: INFO
+

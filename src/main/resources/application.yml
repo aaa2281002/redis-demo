@@ -1,0 +1,29 @@
+mybatis:
+  mapper-locations: classpath:com/demo/*/*.xml
+  type-aliases-package: com.demo.**
+server:
+  servlet:
+    encoding:
+      enabled: true
+      charset: utf-8
+      force: true
+spring:
+  main:
+    allow-circular-references: true
+    allow-bean-definition-overriding: true
+  jackson:
+    default-property-inclusion: non_null
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  profiles:
+    active: local,redis-alone
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: resources/**,static/**,templates/**
+  session:
+    store-type: redis
+    timeout: 3600s
+    maxInactiveIntervalInSeconds: 1800
+
+

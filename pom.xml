@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.demo</groupId>
+    <artifactId>redis-demo</artifactId>
+    <version>1.0.0</version>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <!--   因为redis需要切换。出现上下文的问题。 暂时没解决所以恢复到2.6.6版本    -->
+        <version>2.7.14</version>
+        <!--        <version>2.6.6</version>-->
+        <relativePath/>
+    </parent>
+
+    <!-- 整体项目属性配置 -->
+    <properties>
+        <!-- 设置项目字符集编码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- 设置项目输出字符集编码 -->
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- java-jdk版本号 -->
+        <java.version>1.8</java.version>
+        <!-- spring-cloud对应的架构 -->
+        <!--<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>-->
+        <spring-cloud.version>2021.0.1</spring-cloud.version>
+
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    <build>
+        <finalName>${project.name}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- 指定该Main Class为全局的唯一入口 -->
+                    <mainClass>com.demo.web.start.WebParentApplication</mainClass>
+                    <!--<layout>ZIP</layout>-->
+                    <!-- fork : 如果没有该项配置，肯呢个devtools不会起作用，即应用不会restart   这个要手动加进去 -->
+                    <fork>true</fork>
+                </configuration>
+            </plugin>
+        </plugins>
+        <!-- 编译打包处理对应目录下配置文件路径配置 start -->
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <!-- 添加文件引用组 -->
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+                <!-- 排除引用文件组 -->
+                <excludes>
+                    <!--<exclude>**/*.properties</exclude>-->
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <!-- 添加文件引用组 -->
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+                <!-- 排除引用文件组 -->
+                <excludes>
+                    <!--<exclude>**/*.properties</exclude>-->
+                </excludes>
+            </resource>
+        </resources>
+        <!-- 编译打包处理对应目录下配置文件路径配置 end -->
+    </build>
+
+
+    <!-- spring官网的maven仓库，因为用到最新版本的jar会在其他地方没发布。所以在这里配置了spring官方的maven仓库 -->
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>spring-milestones</id>-->
+<!--            <name>Spring Milestones</name>-->
+<!--            <url>https://repo.spring.io/milestone</url>-->
+<!--        </repository>-->
+<!--    </repositories>-->
+</project>

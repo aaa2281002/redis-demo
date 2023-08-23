@@ -1,0 +1,31 @@
+spring:
+  redis:
+    entityttl: 60
+    enable-multi: true
+    multi:
+      back:
+        database: 10
+        host: 127.0.0.1
+        port: 6379
+        #    password: 123456
+        timeout: 20000s
+        lettuce:
+          pool:
+            max-active: 8
+            max-wait: 3000s
+            max-idle: 8
+            min-idle: 0
+        enable-multi: true
+      api:
+        database: 9
+        host: 127.0.0.1
+        port: 6379
+        #    password: 123456
+        timeout: 20000s
+        lettuce:
+          pool:
+            max-active: 8
+            max-wait: 3000s
+            max-idle: 8
+            min-idle: 0
+
